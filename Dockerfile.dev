@@ -1,0 +1,9 @@
+FROM node:16.13.0
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+ENV REACT_APP_NAME=joe
+ENV REACT_APP_VERSION=1.0
+EXPOSE 3000
+CMD ["npm", "start"]

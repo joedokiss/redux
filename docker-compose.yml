@@ -1,0 +1,16 @@
+version: "3.0"
+services:
+  react:
+    container_name: react-app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "4000:3000"
+    volumes:
+      - ./src:/app/src
+    environment:
+      - REACT_APP_NAME=song
+      - CHOKIDAR_USEPOLLING=true
+    # env_file:
+    #   - ./.env
