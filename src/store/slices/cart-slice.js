@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: [],
-  totalQuantity: 0
+  totalQuantity: 0,
+  // It indicates if the local store is changed
+  changed: false
 }
 
 const cartSlice = createSlice({
@@ -31,6 +33,8 @@ const cartSlice = createSlice({
         existingItem.quantity++
         existingItem.totalPrice += newItem.price
       }
+
+      state.changed = true
     },
     removeItemFromCart(state, action) {
       const id = action.payload.id
@@ -44,6 +48,8 @@ const cartSlice = createSlice({
         existingItem.quantity--
         existingItem.totalPrice -= existingItem.price
       }
+
+      state.changed = true
     }
   }
 })

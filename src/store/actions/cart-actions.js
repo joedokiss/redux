@@ -19,10 +19,12 @@ export const sendCartDataAction = (cart) => {
                 message: 'Sending cart data!'
             })
 
+            const { items, totalQuantity } = cart
+
             const response = await fetch(`${firebaseHost}/cart.json`,
                 {
                     method: 'PUT',
-                    body: JSON.stringify(cart)
+                    body: JSON.stringify({ items, totalQuantity })
                 })
 
             if (!response.ok) {
@@ -63,13 +65,10 @@ export const fetchCartDataAction = () => {
 
         try {
             const cartData = await fetchData()
-            dispatch(cartActions.replaceCart(cartData))
-
-            dispatchNotification(dispatch,{
-                status: 'success',
-                title: 'Success!',
-                message: 'Fetched the data successfully!'
-            })
+            dispatch(cartActions.replaceCart({
+                items: cartData.items ?? [],
+                totalQuantity: cartData.totalQuantity
+            }))
         } catch (error) {
             dispatchNotification(dispatch,{
                 status: 'error',

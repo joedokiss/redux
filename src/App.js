@@ -25,7 +25,9 @@ function App() {
       return
     }
 
-    dispatch(sendCartDataAction(cart))
+    if (cart.changed) {
+      dispatch(sendCartDataAction(cart))
+    }
   }, [cart, dispatch])
 
   return (
