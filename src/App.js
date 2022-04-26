@@ -1,10 +1,18 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React, { Fragment, useEffect } from 'react'
-import Cart from './components/Cart/Cart';
+
 import Layout from './components/Layout/Layout';
-import Products from './components/Shop/Products';
 import Notification from './components/UI/Notification'
-import {fetchCartDataAction, sendCartDataAction} from "./store/actions/cart-actions";
+import { fetchCartDataAction, sendCartDataAction } from "./store/actions/cart-actions";
+import { Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import AllQuotes from './components/Pages/AllQuotes';
+import QuoteDetail from './components/Pages/QuoteDetail';
+import NewQuote from './components/Pages/NewQuote';
+import NotFound from './components/Pages/NotFound';
+import Products from './components/Shop/Products';
+import Cart from './components/Cart/Cart';
 
 let isInitial = true;
 
@@ -17,7 +25,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchCartDataAction())
-  },[dispatch])
+  }, [dispatch])
 
   useEffect(() => {
     if (isInitial) {
@@ -34,8 +42,29 @@ function App() {
     <Fragment>
       {notification && <Notification data={notification} />}
       <Layout>
-        {showCart && <Cart />}
-        <Products />
+        <Switch>
+          <Route path='/' exact>
+            <Redirect to='/quotes' />
+          </Route>
+          <Route path='/quotes' exact>
+            <AllQuotes />
+          </Route>
+          <Route path='/quotes/:quoteId'>
+            <QuoteDetail />
+          </Route>
+          <Route path='/new-quote'>
+            <NewQuote />
+          </Route>
+          <Route path='/products'>
+            <Products />
+          </Route>
+          <Route path='/cart'>
+            <Cart />
+          </Route>
+          <Route path='*'>
+            <NotFound />
+          </Route>
+        </Switch>
       </Layout>
     </Fragment>
   );

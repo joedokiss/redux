@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { cartActions } from '../../store/slices/cart-slice';
 import Card from '../UI/Card';
 import classes from './ProductItem.module.css';
@@ -22,6 +23,9 @@ const ProductItem = (props) => {
           <div className={classes.price}>${price.toFixed(2)}</div>
         </header>
         <p>{description}</p>
+        <div className={classes.more}>
+          <NavLink className={classes.more} to={`/products/${id}`}>Learn more</NavLink>
+        </div>
         <div className={classes.actions}>
           <button onClick={addToCartHandler}>Add to Cart</button>
         </div>

@@ -25,3 +25,8 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.more {
+  display: flex;
+  justify-content: flex-start;
+}
